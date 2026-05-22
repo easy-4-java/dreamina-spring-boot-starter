@@ -2,6 +2,8 @@
 
 Spring Boot Starter，自动装配 [dreamina-java-sdk](../dreamina-java-sdk)，让应用通过注入 `DreaminaCliExecutor` 即可使用本地 `dreamina` CLI。
 
+**CLI 命令完整说明、Agent 编排 SOP、flag 速查与 FAQ** 见 [dreamina-java-sdk README](../dreamina-java-sdk/README.md)。
+
 ## Maven 依赖
 
 ```xml
@@ -39,22 +41,13 @@ dreamina:
     default-poll-interval-seconds: 5
 ```
 
-### application.properties
-
-```properties
-dreamina.cli.enabled=true
-dreamina.cli.executable=dreamina
-dreamina.cli.working-directory=/opt/dreamina
-dreamina.cli.command-timeout-millis=120000
-dreamina.cli.default-poll-interval-seconds=5
-```
-
 ## 使用示例
 
 ```java
 import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
 import io.github.hiwepy.dreamina.cli.DreaminaCliTypedResult;
-import io.github.hiwepy.dreamina.cli.DreaminaUserCreditResult;
+import io.github.hiwepy.dreamina.cli.DreaminaQueryResult;
+import io.github.hiwepy.dreamina.cli.opts.DreaminaQueryResultRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -67,8 +60,16 @@ public class DreaminaFacade {
     }
 
     public Long currentCredit() {
-        DreaminaCliTypedResult<DreaminaUserCreditResult> result = executor.userCreditInfo();
-        return result.getStructured().getTotalCredit();
+        return executor.userCreditInfo().getStructured().getTotalCredit();
+    }
+
+    public DreaminaQueryResult queryAndDownload(String submitId, String downloadDir) {
+        DreaminaQueryResultRequest request = DreaminaQueryResultRequest.builder()
+            .submitId(submitId)
+            .downloadDir(downloadDir)
+            .build();
+        DreaminaCliTypedResult<DreaminaQueryResult> result = executor.queryResultInfo(request);
+        return result.getStructured();
     }
 }
 ```
@@ -79,8 +80,6 @@ public class DreaminaFacade {
 
 ## 测试与验证
 
-Starter 已提供基础自动配置测试：
-
 ```bash
 cd dreamina-spring-boot-starter
 mvn test -Dtest=DreaminaAutoConfigurationTest
@@ -88,25 +87,7 @@ mvn test -Dtest=DreaminaAutoConfigurationTest
 
 ## 发布说明
 
-Starter 已补齐与 `openclaw-spring-boot-starter` 同风格的发布信息与 release profile：
-
-- `url`
-- `licenses`
-- `scm`
-- `developers`
-- `distributionManagement`
-- `release` profile
-
-本地安装：
-
 ```bash
 mvn clean install -DskipTests
-```
-
-正式发布：
-
-```bash
 mvn -Prelease clean deploy
 ```
-
-前提同样是本机已配置 GPG 签名与 Central 发布凭据。
