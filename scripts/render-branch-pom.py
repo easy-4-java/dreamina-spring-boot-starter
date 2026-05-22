@@ -22,7 +22,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 POM = ROOT / "pom.xml"
 
-SNAPSHOT_SUFFIX = f"{os.environ.get('RELEASE_DATE', '20260516')}-SNAPSHOT"
+SNAPSHOT_SUFFIX = f"{os.environ.get('RELEASE_DATE', '20260522')}-SNAPSHOT"
 
 ALIYUN_DM = """
     <distributionManagement>
