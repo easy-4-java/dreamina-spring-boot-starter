@@ -21,8 +21,7 @@
       "name": "dreamina.cli.enabled",
       "type": "java.lang.Boolean",
       "description": "是否启用 Starter 提供的自动配置。",
-      "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties",
-      "defaultValue": true
+      "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties"
     },
     {
       "name": "dreamina.cli.executable",
