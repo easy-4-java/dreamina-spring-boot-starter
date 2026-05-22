@@ -34,5 +34,8 @@
       "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties"
     }
   ],
-  "hints": []
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
 }
