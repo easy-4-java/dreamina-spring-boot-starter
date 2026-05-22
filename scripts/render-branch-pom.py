@@ -18,11 +18,21 @@ from __future__ import annotations
 import os
 import pathlib
 import sys
+from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 POM = ROOT / "pom.xml"
 
-SNAPSHOT_SUFFIX = f"{os.environ.get('RELEASE_DATE', '20260522')}-SNAPSHOT"
+def version_date_suffix() -> str:
+    """SNAPSHOT: {date}-SNAPSHOT；RELEASE(RELEASE=1): 仅 {date}。"""
+    raw = os.environ.get("RELEASE_DATE", "").strip()
+    day = raw if raw else date.today().strftime("%Y%m%d")
+    if os.environ.get("RELEASE", "").strip().lower() in ("1", "true", "yes"):
+        return day
+    return f"{day}-SNAPSHOT"
+
+
+VERSION_DATE_SUFFIX = version_date_suffix()
 
 ALIYUN_DM = """
     <distributionManagement>
@@ -80,7 +90,7 @@ def compiler_config(*, java_version: str, use_release: bool) -> str:
 def write_pom(
     *, boot_parent: str, java_version: str, version_prefix: str, use_release: bool
 ) -> None:
-    ver = f"{version_prefix}.{SNAPSHOT_SUFFIX}"
+    ver = f"{version_prefix}.{VERSION_DATE_SUFFIX}"
     sdk_ver = ver
     comp = compiler_config(java_version=java_version, use_release=use_release)
     jdk_label = java_version
