@@ -1,6 +1,7 @@
 package io.github.hiwepy.dreamina.spring.boot;
 
 import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
+import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
 import io.github.hiwepy.dreamina.DreaminaCliProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
         properties = {
                 "dreamina.cli.enabled=true",
                 "dreamina.cli.executable=dreamina",
-                "dreamina.cli.command-timeout-millis=120000"
+                "dreamina.cli.command-timeout-millis=120000",
+                "dreamina.cli.startup-check-enabled=false"
         }
 )
 class DreaminaAutoConfigurationTest {
@@ -30,6 +32,9 @@ class DreaminaAutoConfigurationTest {
     @Autowired
     private DreaminaCliExecutor executor;
 
+    @Autowired
+    private DreaminaCliAvailabilityChecker availabilityChecker;
+
     /**
      * 验证 Starter 能注册属性对象与执行器 Bean。
      */
@@ -37,5 +42,6 @@ class DreaminaAutoConfigurationTest {
     void shouldRegisterDreaminaBeans() {
         assertNotNull(properties);
         assertNotNull(executor);
+        assertNotNull(availabilityChecker);
     }
 }
