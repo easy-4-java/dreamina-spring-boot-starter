@@ -1,12 +1,14 @@
 package io.github.hiwepy.dreamina.spring.boot;
 
 import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
+import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 /**
  * 注册 Dreamina CLI SDK 所需的 Spring Bean。
@@ -34,5 +36,33 @@ public class DreaminaAutoConfiguration {
     @ConditionalOnMissingBean
     public DreaminaCliExecutor dreaminaCliExecutor(DreaminaProperties properties) {
         return new DreaminaCliExecutor(properties);
+    }
+
+    /**
+     * CLI 可用性探测器（无状态，可被业务或 Starter 复用）。
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public DreaminaCliAvailabilityChecker dreaminaCliAvailabilityChecker() {
+        return new DreaminaCliAvailabilityChecker();
+    }
+
+    /**
+     * 启动时校验本机 {@code dreamina} 可执行且 {@code version} 成功。
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty(
+            prefix = DreaminaProperties.PREFIX,
+            name = "startup-check-enabled",
+            havingValue = "true",
+            matchIfMissing = true)
+    public DreaminaCliStartupChecker dreaminaCliStartupChecker(
+            DreaminaCliExecutor dreaminaCliExecutor,
+            DreaminaProperties dreaminaProperties,
+            DreaminaCliAvailabilityChecker availabilityChecker,
+            Environment environment) {
+        return new DreaminaCliStartupChecker(
+                dreaminaCliExecutor, dreaminaProperties, availabilityChecker, environment);
     }
 }
