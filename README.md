@@ -55,8 +55,8 @@ dreamina:
 
 ```java
 import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.DreaminaCliTypedResult;
-import io.github.hiwepy.dreamina.cli.DreaminaQueryResult;
+import io.github.hiwepy.dreamina.cli.DreaminaCliResponse;
+import io.github.hiwepy.dreamina.cli.model.DreaminaQueryResult;
 import io.github.hiwepy.dreamina.cli.opts.DreaminaQueryResultRequest;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +70,7 @@ public class DreaminaFacade {
     }
 
     public Long currentCredit() {
-        return executor.userCreditInfo().getStructured().getTotalCredit();
+        return executor.userCreditInfo().getBody().getTotalCredit();
     }
 
     public DreaminaQueryResult queryAndDownload(String submitId, String downloadDir) {
@@ -78,8 +78,8 @@ public class DreaminaFacade {
             .submitId(submitId)
             .downloadDir(downloadDir)
             .build();
-        DreaminaCliTypedResult<DreaminaQueryResult> result = executor.queryResultInfo(request);
-        return result.getStructured();
+        DreaminaCliResponse<DreaminaQueryResult> result = executor.queryResultInfo(request);
+        return result.getBody();
     }
 }
 ```
