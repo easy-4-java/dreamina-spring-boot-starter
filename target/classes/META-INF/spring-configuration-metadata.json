@@ -30,6 +30,30 @@
       "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties"
     },
     {
+      "name": "dreamina.cli.fail-fast-on-unavailable",
+      "type": "java.lang.Boolean",
+      "description": "启动探测失败时是否中断应用启动；默认 false 仅打 WARN，生产可设为 true。",
+      "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "dreamina.cli.max-concurrent-executions",
+      "type": "java.lang.Integer",
+      "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties"
+    },
+    {
+      "name": "dreamina.cli.startup-check-enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否在应用启动时执行 {@code dreamina version} 探测。",
+      "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "dreamina.cli.startup-probe-timeout-millis",
+      "type": "java.lang.Long",
+      "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties"
+    },
+    {
       "name": "dreamina.cli.working-directory",
       "type": "java.lang.String",
       "sourceType": "io.github.hiwepy.dreamina.spring.boot.DreaminaProperties"
