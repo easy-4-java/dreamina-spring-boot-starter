@@ -20,6 +20,7 @@ Starter 会自动完成：
 
 - 绑定 `dreamina.cli.*` 配置到 `DreaminaProperties`
 - 注册 `DreaminaCliExecutor`
+- 启动时执行 `dreamina version` 探测（默认开启；失败默认 **仅 WARN**，可设 `fail-fast-on-unavailable=true` 中断启动）
 - 通过 `spring.factories` 与 `AutoConfiguration.imports` 同时兼容 Spring Boot 2.x / 3.x 自动配置发现
 
 主自动配置类：
@@ -38,8 +39,17 @@ dreamina:
     executable: dreamina
     working-directory: /opt/dreamina
     command-timeout-millis: 120000
+    startup-probe-timeout-millis: 30000
+    startup-check-enabled: true
+    fail-fast-on-unavailable: false
     default-poll-interval-seconds: 5
 ```
+
+| 属性 | 说明 |
+|------|------|
+| `startup-check-enabled` | 启动时探测 `dreamina version`，默认 `true` |
+| `fail-fast-on-unavailable` | 探测失败是否中断启动，默认 `false`（仅 WARN） |
+| `startup-probe-timeout-millis` | 探测专用超时（毫秒），默认 `30000` |
 
 ## 使用示例
 
@@ -76,7 +86,9 @@ public class DreaminaFacade {
 
 ## 条件装配
 
-默认 `dreamina.cli.enabled=true`，当设置为 `false` 时，Starter 不会注册 `DreaminaCliExecutor`。
+默认 `dreamina.cli.enabled=true`，当设置为 `false` 时，Starter 不会注册 `DreaminaCliExecutor` 也不会执行启动探测。
+
+本地开发若暂未安装 CLI，可关闭探测：`dreamina.cli.startup-check-enabled=false`；生产环境建议 `dreamina.cli.fail-fast-on-unavailable=true`。
 
 ## 测试与验证
 

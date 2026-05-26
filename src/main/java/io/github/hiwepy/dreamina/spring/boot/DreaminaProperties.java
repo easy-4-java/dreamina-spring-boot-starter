@@ -29,4 +29,14 @@ public class DreaminaProperties extends DreaminaCliProperties {
      * 是否启用 Starter 提供的自动配置。
      */
     private boolean enabled = true;
+
+    /**
+     * 是否在应用启动时执行 {@code dreamina version} 探测。
+     */
+    private boolean startupCheckEnabled = true;
+
+    /**
+     * 启动探测失败时是否中断应用启动；默认 false 仅打 WARN，生产可设为 true。
+     */
+    private boolean failFastOnUnavailable = false;
 }
