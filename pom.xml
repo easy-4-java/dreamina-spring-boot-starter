@@ -16,7 +16,7 @@
     <version>2.3.x.20260526-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>Spring Boot starter for Dreamina Java SDK (line 2.3.x; compile JDK 1.8)</description>
+    <description>Spring Boot starter for Dreamina Java SDK (line 2.7.x; compile JDK 1.8)</description>
     <url>https://github.com/hiwepy/${project.artifactId}</url>
 
     <properties>
