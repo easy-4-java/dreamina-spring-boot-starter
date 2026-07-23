@@ -1,9 +1,9 @@
-package io.github.hiwepy.dreamina.spring.boot;
+package io.github.easy4j.dreamina.spring.boot;
 
-import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
-import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityReport;
-import io.github.hiwepy.dreamina.exception.DreaminaCliStartupException;
+import io.github.easy4j.dreamina.cli.DreaminaCliExecutor;
+import io.github.easy4j.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
+import io.github.easy4j.dreamina.cli.availability.DreaminaCliAvailabilityReport;
+import io.github.easy4j.dreamina.exception.DreaminaCliStartupException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -74,7 +74,7 @@ public class DreaminaCliStartupChecker implements ApplicationRunner {
      */
     private static boolean isDreaminaStarterOnClasspath() {
         try {
-            Class.forName("io.github.hiwepy.dreamina.spring.boot.DreaminaAutoConfiguration");
+            Class.forName("io.github.easy4j.dreamina.spring.boot.DreaminaAutoConfiguration");
             return true;
         } catch (ClassNotFoundException ex) {
             return false;

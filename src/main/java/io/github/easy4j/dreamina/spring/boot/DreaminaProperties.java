@@ -1,6 +1,6 @@
-package io.github.hiwepy.dreamina.spring.boot;
+package io.github.easy4j.dreamina.spring.boot;
 
-import io.github.hiwepy.dreamina.DreaminaCliProperties;
+import io.github.easy4j.dreamina.DreaminaCliProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;

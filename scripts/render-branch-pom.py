@@ -107,13 +107,13 @@ def write_pom(
         <relativePath/>
     </parent>
 
-    <groupId>io.github.hiwepy</groupId>
+    <groupId>io.github.easy4j</groupId>
     <artifactId>dreamina-spring-boot-starter</artifactId>
     <version>{ver}</version>
     <packaging>jar</packaging>
     <name>${{project.groupId}}:${{project.artifactId}}</name>
     <description>Spring Boot starter for Dreamina Java SDK (line {version_prefix}; compile JDK {jdk_label})</description>
-    <url>https://github.com/hiwepy/${{project.artifactId}}</url>
+    <url>https://github.com/easy-4-java/${{project.artifactId}}</url>
 
     <properties>
         <java.version>{java_version}</java.version>
@@ -137,7 +137,7 @@ def write_pom(
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>io.github.hiwepy</groupId>
+            <groupId>io.github.easy4j</groupId>
             <artifactId>dreamina-java-sdk</artifactId>
             <version>${{dreamina-java-sdk.version}}</version>
         </dependency>

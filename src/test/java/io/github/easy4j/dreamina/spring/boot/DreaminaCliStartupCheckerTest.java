@@ -1,8 +1,8 @@
-package io.github.hiwepy.dreamina.spring.boot;
+package io.github.easy4j.dreamina.spring.boot;
 
-import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
-import io.github.hiwepy.dreamina.exception.DreaminaCliStartupException;
+import io.github.easy4j.dreamina.cli.DreaminaCliExecutor;
+import io.github.easy4j.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
+import io.github.easy4j.dreamina.exception.DreaminaCliStartupException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.mock.env.MockEnvironment;
