@@ -1,7 +1,7 @@
-package io.github.hiwepy.dreamina.spring.boot;
+package io.github.easy4j.dreamina.spring.boot;
 
-import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
+import io.github.easy4j.dreamina.cli.DreaminaCliExecutor;
+import io.github.easy4j.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
