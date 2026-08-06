@@ -1,112 +1,168 @@
+<a id="readme-top"></a>
+
+<div align="center">
+
 # dreamina-spring-boot-starter
 
-Spring Boot Starter，自动装配 [dreamina-java-sdk](../dreamina-java-sdk)，让应用通过注入 `DreaminaCliExecutor` 即可使用本地 `dreamina` CLI。
+**Spring Boot Starter for dreamina**
 
-## Maven 依赖
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.easy4j/dreamina-spring-boot-starter)](https://github.com/easy-4-java/dreamina-spring-boot-starter)
+[![Java](https://img.shields.io/badge/Java-1.8-orange)](#3-requirements-and-compatibility)
+[![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://www.apache.org/licenses/LICENSE-2.0)
+
+[简体中文](./README.zh-CN.md) | [English](./README.md)
+
+[Positioning](#1-positioning) · [Capabilities](#2-core-capabilities) ·
+[Dependency](#5-dependency) · [Quick Start](#6-quick-start) ·
+[Configuration](#7-configuration-reference) · [Versions](#9-version-lines-and-compatibility) ·
+[Build](#10-build-and-test) · [License](#12-license)
+
+</div>
+
+---
+
+> **Current Version**：`1.0.x.20260516-SNAPSHOT`<br>
+> **JDK Baseline**：`1.8`<br>
+> **Group ID**：`io.github.easy4j`<br>
+> **Artifact ID**：`dreamina-spring-boot-starter`<br>
+> **License**：Apache License 2.0<br>
+
+## 1. Positioning
+
+**dreamina-spring-boot-starter** is a Spring Boot starter that integrates **dreamina** for applications using dreamina. It provides auto-configuration, property binding, and ready-to-use beans so that applications can consume dreamina capabilities with minimal setup.
+
+| Dimension | Description |
+|---|---|
+| Type | Spring Boot Starter |
+| Consumers | Spring Boot applications using dreamina |
+| Core Capabilities | auto-configuration, property binding, ready-to-use beans for dreamina |
+| JDK | `1.8` |
+| Coordinates | `io.github.easy4j:dreamina-spring-boot-starter:1.0.x.20260516-SNAPSHOT` |
+| Config Prefix | `dreamina` |
+
+## 2. Core Capabilities
+
+| Capability | Status | Description |
+|---|:---:|---|
+| Auto-configuration | ✅ Stable | Registers dreamina beans automatically |
+| Property Binding | ✅ Stable | Binds `dreamina.*` to `DreaminaProperties` |
+| `DreaminaCliExecutor` bean | ✅ Stable | Auto-registered via DreaminaAutoConfiguration |
+
+## 3. Requirements and Compatibility
+
+| Dependency | Minimum | Evidence |
+|---|---:|---|
+| JDK | `1.8` | `pom.xml` |
+| Spring Boot | `2.7.18` | `pom.xml` parent |
+| Maven | `3.6+` | Maven Enforcer |
+
+## 4. Auto-configuration
+
+The starter auto-configures the following beans:
+
+| Bean | Condition | Missing Behavior |
+|---|---|---|
+| `DreaminaCliExecutor` | classpath + property | not created |
+
+Auto-configuration registration:
+
+- `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports` (Spring Boot 2.7+ / 3.x / 4.x)
+- `META-INF/spring.factories` (Spring Boot 2.x legacy)
+
+## 5. Dependency
 
 ```xml
 <dependency>
-  <groupId>io.github.hiwepy</groupId>
-  <artifactId>dreamina-spring-boot-starter</artifactId>
-  <version>1.0.x.20260515-SNAPSHOT</version>
+    <groupId>io.github.easy4j</groupId>
+    <artifactId>dreamina-spring-boot-starter</artifactId>
+    <version>1.0.x.20260516-SNAPSHOT</version>
 </dependency>
 ```
 
-## 自动配置能力
+No additional easy4j component dependencies.
 
-Starter 会自动完成：
+## 6. Quick Start
 
-- 绑定 `dreamina.cli.*` 配置到 `DreaminaProperties`
-- 注册 `DreaminaCliExecutor`
-- 通过 `spring.factories` 与 `AutoConfiguration.imports` 同时兼容 Spring Boot 2.x / 3.x 自动配置发现
+### 6.1 Add dependency
 
-主自动配置类：
+Add the dependency above to your `pom.xml`.
 
-- [`DreaminaAutoConfiguration`](src/main/java/io/github/hiwepy/dreamina/spring/boot/DreaminaAutoConfiguration.java)
-- [`DreaminaProperties`](src/main/java/io/github/hiwepy/dreamina/spring/boot/DreaminaProperties.java)
-
-## 示例配置
-
-### application.yml
+### 6.2 Configure
 
 ```yaml
 dreamina:
-  cli:
-    enabled: true
-    executable: dreamina
-    working-directory: /opt/dreamina
-    command-timeout-millis: 120000
-    default-poll-interval-seconds: 5
+  enabled: true
 ```
 
-### application.properties
-
-```properties
-dreamina.cli.enabled=true
-dreamina.cli.executable=dreamina
-dreamina.cli.working-directory=/opt/dreamina
-dreamina.cli.command-timeout-millis=120000
-dreamina.cli.default-poll-interval-seconds=5
-```
-
-## 使用示例
+### 6.3 Use the bean
 
 ```java
-import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.DreaminaCliTypedResult;
-import io.github.hiwepy.dreamina.cli.DreaminaUserCreditResult;
-import org.springframework.stereotype.Service;
-
-@Service
-public class DreaminaFacade {
-
-    private final DreaminaCliExecutor executor;
-
-    public DreaminaFacade(DreaminaCliExecutor executor) {
-        this.executor = executor;
-    }
-
-    public Long currentCredit() {
-        DreaminaCliTypedResult<DreaminaUserCreditResult> result = executor.userCreditInfo();
-        return result.getStructured().getTotalCredit();
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 }
 ```
 
-## 条件装配
+Then inject the auto-configured bean in your code:
 
-默认 `dreamina.cli.enabled=true`，当设置为 `false` 时，Starter 不会注册 `DreaminaCliExecutor`。
-
-## 测试与验证
-
-Starter 已提供基础自动配置测试：
-
-```bash
-cd dreamina-spring-boot-starter
-mvn test -Dtest=DreaminaAutoConfigurationTest
+```java
+@Autowired
+private DreaminaCliExecutor dreaminaCliExecutor;
 ```
 
-## 发布说明
+## 7. Configuration Reference
 
-Starter 已补齐与 `openclaw-spring-boot-starter` 同风格的发布信息与 release profile：
+### 7.1 Config Prefix
 
-- `url`
-- `licenses`
-- `scm`
-- `developers`
-- `distributionManagement`
-- `release` profile
+`dreamina`
 
-本地安装：
+### 7.2 Configuration Items
+
+| Property | Type | Default | Required | Description | Sensitive |
+|---|---|---|:---:|---|:---:|
+| `dreamina.enabled` | boolean | `true` | No | Enable the starter | No |
+<!-- additional properties below -->
+
+## 8. Version Lines and Compatibility
+
+| Branch | JDK | Spring Boot | Component Version | Status |
+|---|---:|---:|---|:---:|
+| `2.3.x` / `2.7.x` | `8+` | 2.3.x / 2.7.x | `1.0.x` | Maintenance |
+| `3.0.x` ~ `3.5.x` | `17` | 3.x | `2.0.x` | Maintenance |
+| `4.0.x` / `4.1.x` | `17+` | 4.x | `3.0.x` | Active |
+
+## 9. Build and Test
 
 ```bash
-mvn clean install -DskipTests
+mvn clean verify
+mvn -pl dreamina-spring-boot-starter -am test
 ```
 
-正式发布：
+## 10. Troubleshooting
 
-```bash
-mvn -Prelease clean deploy
-```
+| Symptom | Diagnosis | Resolution |
+|---|---|---|
+| Bean not created | Check auto-configuration report | Verify `dreamina.enabled=true` and classpath |
+| `ClassNotFoundException` | Missing dependency | Add the required module |
+| Version conflict | `mvn dependency:tree` | Use BOM for version alignment |
 
-前提同样是本机已配置 GPG 签名与 Central 发布凭据。
+## 11. Contribution
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Run `mvn clean verify` before submitting.
+4. Submit a pull request.
+
+## 12. License
+
+This project is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+---
+
+<div align="center">
+
+[Back to top](#readme-top) · [Issues](https://github.com/easy-4-java/dreamina-spring-boot-starter/issues) · [Repository](https://github.com/easy-4-java/dreamina-spring-boot-starter)
+
+</div>
