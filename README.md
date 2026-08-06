@@ -8,7 +8,7 @@ Spring Boot Starter，自动装配 [dreamina-java-sdk](../dreamina-java-sdk)，�
 
 ```xml
 <dependency>
-  <groupId>io.github.hiwepy</groupId>
+  <groupId>io.github.easy4j</groupId>
   <artifactId>dreamina-spring-boot-starter</artifactId>
   <version>1.0.x.20260515-SNAPSHOT</version>
 </dependency>
@@ -54,10 +54,10 @@ dreamina:
 ## 使用示例
 
 ```java
-import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.DreaminaCliResponse;
-import io.github.hiwepy.dreamina.cli.model.DreaminaQueryResult;
-import io.github.hiwepy.dreamina.cli.opts.DreaminaQueryResultRequest;
+import io.github.easy4j.dreamina.cli.DreaminaCliExecutor;
+import io.github.easy4j.dreamina.cli.DreaminaCliResponse;
+import io.github.easy4j.dreamina.cli.model.DreaminaQueryResult;
+import io.github.easy4j.dreamina.cli.opts.DreaminaQueryResultRequest;
 import org.springframework.stereotype.Service;
 
 @Service

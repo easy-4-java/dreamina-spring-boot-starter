@@ -74,7 +74,7 @@ public class DreaminaCliStartupChecker implements ApplicationRunner {
      */
     private static boolean isDreaminaStarterOnClasspath() {
         try {
-            Class.forName("io.github.hiwepy.dreamina.spring.boot.DreaminaAutoConfiguration");
+            Class.forName("io.github.easy4j.dreamina.spring.boot.DreaminaAutoConfiguration");
             return true;
         } catch (ClassNotFoundException ex) {
             return false;
