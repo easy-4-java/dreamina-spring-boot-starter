@@ -18,11 +18,11 @@ from __future__ import annotations
 import os
 import pathlib
 import sys
-from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 POM = ROOT / "pom.xml"
 
+<<<<<<< Updated upstream
 def version_date_suffix() -> str:
     """SNAPSHOT: {date}-SNAPSHOT；RELEASE(RELEASE=1): 仅 {date}。"""
     raw = os.environ.get("RELEASE_DATE", "").strip()
@@ -33,6 +33,9 @@ def version_date_suffix() -> str:
 
 
 VERSION_DATE_SUFFIX = version_date_suffix()
+=======
+SNAPSHOT_SUFFIX = f"{os.environ.get('RELEASE_DATE', '20260516')}-SNAPSHOT"
+>>>>>>> Stashed changes
 
 ALIYUN_DM = """
     <distributionManagement>
