@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.github.hiwepy.dreamina.spring.boot.DreaminaAutoConfiguration
+io.github.easy4j.dreamina.spring.boot.DreaminaAutoConfiguration
