@@ -17,7 +17,7 @@ import org.springframework.core.env.Environment;
  * 下沉到 Starter 统一管理。
  * </p>
  *
- * @author wandl
+ * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
 @Slf4j
@@ -74,7 +74,7 @@ public class DreaminaCliStartupChecker implements ApplicationRunner {
      */
     private static boolean isDreaminaStarterOnClasspath() {
         try {
-            Class.forName("io.github.hiwepy.dreamina.spring.boot.DreaminaAutoConfiguration");
+            Class.forName("io.github.easy4j.dreamina.spring.boot.DreaminaAutoConfiguration");
             return true;
         } catch (ClassNotFoundException ex) {
             return false;
