@@ -17,7 +17,7 @@ import org.springframework.core.env.Environment;
  * {@link DreaminaCliExecutor} 供业务层直接注入使用。
  * </p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @Configuration
