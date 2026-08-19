@@ -24,6 +24,11 @@ import org.springframework.core.env.Environment;
 @ConditionalOnClass(DreaminaCliExecutor.class)
 @EnableConfigurationProperties(DreaminaProperties.class)
 @ConditionalOnProperty(prefix = DreaminaProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
+/**
+ * <p>Auto-configuration for DreaminaAutoConfiguration.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class DreaminaAutoConfiguration {
 
     /**
@@ -34,6 +39,11 @@ public class DreaminaAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
+    /**
+     * <p>Dreamina cli executor.</p>
+     * @param properties
+     * @return the result
+     */
     public DreaminaCliExecutor dreaminaCliExecutor(DreaminaProperties properties) {
         return new DreaminaCliExecutor(properties);
     }
@@ -43,6 +53,10 @@ public class DreaminaAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
+    /**
+     * <p>Dreamina cli availability checker.</p>
+     * @return the result
+     */
     public DreaminaCliAvailabilityChecker dreaminaCliAvailabilityChecker() {
         return new DreaminaCliAvailabilityChecker();
     }

@@ -18,6 +18,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ConfigurationProperties(prefix = DreaminaProperties.PREFIX)
+/**
+ * <p>Auto-configuration for DreaminaProperties.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class DreaminaProperties extends DreaminaCliProperties {
 
     /**

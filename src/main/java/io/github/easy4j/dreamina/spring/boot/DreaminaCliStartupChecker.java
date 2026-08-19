@@ -22,6 +22,11 @@ import org.springframework.core.env.Environment;
  */
 @Slf4j
 @RequiredArgsConstructor
+/**
+ * <p>Auto-configuration for DreaminaCliStartupChecker.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class DreaminaCliStartupChecker implements ApplicationRunner {
 
     private final DreaminaCliExecutor dreaminaCliExecutor;
@@ -33,6 +38,10 @@ public class DreaminaCliStartupChecker implements ApplicationRunner {
      * 启动阶段执行 {@code dreamina version} 探测；失败时按配置 fail-fast 或仅告警。
      */
     @Override
+    /**
+     * <p>Run.</p>
+     * @param args
+     */
     public void run(ApplicationArguments args) {
         DreaminaCliAvailabilityReport report = availabilityChecker.check(dreaminaCliExecutor);
         String configSnapshot = buildEffectiveConfigSnapshot();
