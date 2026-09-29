@@ -21,7 +21,7 @@
 
 ---
 
-> **Current Version**：`1.0.x.20260516-SNAPSHOT`<br>
+> **Current Version**：`1.0.x.20260830-SNAPSHOT`<br>
 > **JDK Baseline**：`1.8`<br>
 > **Group ID**：`io.github.easy4j`<br>
 > **Artifact ID**：`dreamina-spring-boot-starter`<br>
@@ -37,7 +37,7 @@
 | Consumers | Spring Boot applications using dreamina |
 | Core Capabilities | auto-configuration, property binding, ready-to-use beans for dreamina |
 | JDK | `1.8` |
-| Coordinates | `io.github.easy4j:dreamina-spring-boot-starter:1.0.x.20260516-SNAPSHOT` |
+| Coordinates | `io.github.easy4j:dreamina-spring-boot-starter:1.0.x.20260830-SNAPSHOT` |
 | Config Prefix | `dreamina` |
 
 ## 2. Core Capabilities
@@ -75,7 +75,7 @@ Auto-configuration registration:
 <dependency>
     <groupId>io.github.easy4j</groupId>
     <artifactId>dreamina-spring-boot-starter</artifactId>
-    <version>1.0.x.20260516-SNAPSHOT</version>
+    <version>1.0.x.20260830-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -166,3 +166,7 @@ This project is licensed under the [Apache License, Version 2.0](https://www.apa
 [Back to top](#readme-top) · [Issues](https://github.com/easy-4-java/dreamina-spring-boot-starter/issues) · [Repository](https://github.com/easy-4-java/dreamina-spring-boot-starter)
 
 </div>
+
+## Dreamina Canvas CLI
+
+The starter exposes `DreaminaCanvasCliExecutor` with separate `dreamina.canvas.*` settings. Set `dreamina.canvas.profile=work` for an isolated profile; set `dreamina.canvas.enabled=false` to disable this bean. Legacy `dreamina.cli.*` remains available.

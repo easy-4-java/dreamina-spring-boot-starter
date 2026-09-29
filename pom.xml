@@ -13,7 +13,7 @@
 
     <groupId>io.github.easy4j</groupId>
     <artifactId>dreamina-spring-boot-starter</artifactId>
-    <version>1.0.x.20260516-SNAPSHOT</version>
+    <version>1.0.x.20260830-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Spring Boot starter for Dreamina Java SDK</description>
@@ -23,7 +23,8 @@
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dreamina-java-sdk.version>1.0.x.20260516-SNAPSHOT</dreamina-java-sdk.version>
+        <dreamina-java-sdk.version>1.0.x.20260830-SNAPSHOT</dreamina-java-sdk.version>
+        <jackson-bom.version>2.18.9</jackson-bom.version>
     </properties>
 
     <dependencies>
