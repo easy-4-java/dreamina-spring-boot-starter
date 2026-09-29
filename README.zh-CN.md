@@ -21,7 +21,7 @@
 
 ---
 
-> **当前版本**：`4.0.x.20260630-SNAPSHOT`<br>
+> **当前版本**：`4.0.x.20260830-SNAPSHOT`<br>
 > **JDK 基线**：`17`<br>
 > **Group ID**：`io.github.easy4j`<br>
 > **Artifact ID**：`dreamina-spring-boot-starter`<br>
@@ -37,7 +37,7 @@
 | 消费方 | 使用 dreamina 的 Spring Boot 应用 |
 | 核心能力 | 自动装配、属性绑定、开箱即用的 dreamina Bean |
 | JDK | `17` |
-| 坐标 | `io.github.easy4j:dreamina-spring-boot-starter:4.0.x.20260630-SNAPSHOT` |
+| 坐标 | `io.github.easy4j:dreamina-spring-boot-starter:4.0.x.20260830-SNAPSHOT` |
 | 配置前缀 | `dreamina` |
 
 ## 2. 核心能力
@@ -77,7 +77,7 @@ Starter 自动装配以下 Bean：
 <dependency>
     <groupId>io.github.easy4j</groupId>
     <artifactId>dreamina-spring-boot-starter</artifactId>
-    <version>4.0.x.20260630-SNAPSHOT</version>
+    <version>4.0.x.20260830-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -175,3 +175,7 @@ mvn -pl dreamina-spring-boot-starter -am test
 [返回顶部](#readme-top) · [问题反馈](https://github.com/easy-4-java/dreamina-spring-boot-starter/issues) · [仓库地址](https://github.com/easy-4-java/dreamina-spring-boot-starter)
 
 </div>
+
+## 即梦画布 CLI
+
+Starter 提供 `DreaminaCanvasCliExecutor`，使用独立的 `dreamina.canvas.*` 配置。可设置 `dreamina.canvas.profile=work` 隔离登录态，也可用 `dreamina.canvas.enabled=false` 关闭该 Bean；原 `dreamina.cli.*` 继续保留。

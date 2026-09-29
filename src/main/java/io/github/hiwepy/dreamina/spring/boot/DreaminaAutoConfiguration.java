@@ -1,10 +1,14 @@
 package io.github.hiwepy.dreamina.spring.boot;
 
-import io.github.hiwepy.dreamina.cli.DreaminaCliExecutor;
-import io.github.hiwepy.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
+import io.github.easy4j.dreamina.DreaminaCanvasCliProperties;
+import io.github.easy4j.dreamina.cli.DreaminaCanvasCliExecutor;
+import io.github.easy4j.dreamina.cli.DreaminaCliExecutor;
+import io.github.easy4j.dreamina.cli.availability.DreaminaCliAvailabilityChecker;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +27,17 @@ import org.springframework.core.env.Environment;
 @Configuration
 @ConditionalOnClass(DreaminaCliExecutor.class)
 @EnableConfigurationProperties(DreaminaProperties.class)
-@ConditionalOnProperty(prefix = DreaminaProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DreaminaAutoConfiguration {
+
+    /** 独立绑定 Canvas 配置，避免旧 CLI 属性 Bean 出现同类型歧义。 */
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "dreamina.canvas", name = "enabled", havingValue = "true", matchIfMissing = true)
+    public DreaminaCanvasCliExecutor dreaminaCanvasCliExecutor(Environment environment) {
+        DreaminaCanvasCliProperties properties = new DreaminaCanvasCliProperties();
+        Binder.get(environment).bind("dreamina.canvas", Bindable.ofInstance(properties));
+        return new DreaminaCanvasCliExecutor(properties);
+    }
 
     /**
      * 基于配置属性构造 Dreamina CLI 执行器。
@@ -34,6 +47,7 @@ public class DreaminaAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = DreaminaProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
     public DreaminaCliExecutor dreaminaCliExecutor(DreaminaProperties properties) {
         return new DreaminaCliExecutor(properties);
     }
@@ -43,6 +57,7 @@ public class DreaminaAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = DreaminaProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
     public DreaminaCliAvailabilityChecker dreaminaCliAvailabilityChecker() {
         return new DreaminaCliAvailabilityChecker();
     }
@@ -54,7 +69,7 @@ public class DreaminaAutoConfiguration {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(
             prefix = DreaminaProperties.PREFIX,
-            name = "startup-check-enabled",
+            name = {"enabled", "startup-check-enabled"},
             havingValue = "true",
             matchIfMissing = true)
     public DreaminaCliStartupChecker dreaminaCliStartupChecker(
