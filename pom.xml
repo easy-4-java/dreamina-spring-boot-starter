@@ -13,10 +13,10 @@
 
     <groupId>io.github.easy4j</groupId>
     <artifactId>dreamina-spring-boot-starter</artifactId>
-    <version>4.1.x.20260630-SNAPSHOT</version>
+    <version>4.1.x.20260830-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>Spring Boot starter for Dreamina Java SDK (line 4.1.x; compile JDK 17)</description>
+    <description>Spring Boot starter for Dreamina Java SDK (line 4.1.x; compile JDK 21)</description>
     <url>https://github.com/easy-4-java/${project.artifactId}</url>
 
     <!-- 开源协议采用 Apache 2.0 协议 -->
@@ -58,7 +58,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Third-Party Dependencies -->
         <commons-io.version>2.22.0</commons-io.version>
-        <dreamina-java-sdk.version>3.0.x.20260630-SNAPSHOT</dreamina-java-sdk.version>
+        <dreamina-java-sdk.version>3.0.x.20260830-SNAPSHOT</dreamina-java-sdk.version>
         <slf4j.version>2.0.18</slf4j.version>
         <!-- Maven Plugin Dependencies -->
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>

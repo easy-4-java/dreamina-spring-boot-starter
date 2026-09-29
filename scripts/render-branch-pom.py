@@ -8,7 +8,8 @@
 JDK 基线（与 dreamina-java-sdk 一致）:
   2.3.x / 2.7.x -> JDK 8
   3.0.x-3.4.x -> JDK 17
-  3.5.x / 4.0.x -> JDK 17
+  3.5.x -> JDK 17
+  4.0.x -> JDK 21
 
 用法:
   python3 scripts/render-branch-pom.py <branch>
@@ -22,20 +23,16 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 POM = ROOT / "pom.xml"
 
-<<<<<<< Updated upstream
 def version_date_suffix() -> str:
     """SNAPSHOT: {date}-SNAPSHOT；RELEASE(RELEASE=1): 仅 {date}。"""
     raw = os.environ.get("RELEASE_DATE", "").strip()
-    day = raw if raw else date.today().strftime("%Y%m%d")
+    day = raw if raw else "20260830"
     if os.environ.get("RELEASE", "").strip().lower() in ("1", "true", "yes"):
         return day
     return f"{day}-SNAPSHOT"
 
 
 VERSION_DATE_SUFFIX = version_date_suffix()
-=======
-SNAPSHOT_SUFFIX = f"{os.environ.get('RELEASE_DATE', '20260516')}-SNAPSHOT"
->>>>>>> Stashed changes
 
 ALIYUN_DM = """
     <distributionManagement>
@@ -73,7 +70,7 @@ MATRIX = {
     "3.3.x": ("3.3.13", "17", "3.3.x", True),
     "3.4.x": ("3.4.13", "17", "3.4.x", True),
     "3.5.x": ("3.5.9", "17", "3.5.x", True),
-    "4.0.x": ("4.0.1", "17", "4.0.x", True),
+    "4.0.x": ("4.0.1", "21", "4.0.x", True),
 }
 
 
@@ -94,7 +91,8 @@ def write_pom(
     *, boot_parent: str, java_version: str, version_prefix: str, use_release: bool
 ) -> None:
     ver = f"{version_prefix}.{VERSION_DATE_SUFFIX}"
-    sdk_ver = ver
+    sdk_prefix = {"2": "1.0.x", "3": "2.0.x", "4": "3.0.x"}[version_prefix.split(".", 1)[0]]
+    sdk_ver = f"{sdk_prefix}.{VERSION_DATE_SUFFIX}"
     comp = compiler_config(java_version=java_version, use_release=use_release)
     jdk_label = java_version
     body = f'''<?xml version='1.0' encoding='UTF-8'?>
