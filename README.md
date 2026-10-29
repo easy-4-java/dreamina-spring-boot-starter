@@ -6,7 +6,7 @@
 
 **Spring Boot Starter for dreamina**
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.easy4j/dreamina-spring-boot-starter)](https://github.com/easy-4-java/dreamina-spring-boot-starter)
+[![Private Maven](https://img.shields.io/badge/Maven-Aliyun_Private-blue)](https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-snapshot-3eoov3)
 [![Java](https://img.shields.io/badge/Java-17-orange)](#3-requirements-and-compatibility)
 [![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://www.apache.org/licenses/LICENSE-2.0)
 
@@ -45,7 +45,7 @@
 | Capability | Status | Description |
 |---|:---:|---|
 | Auto-configuration | ✅ Stable | Registers dreamina beans automatically |
-| Property Binding | ✅ Stable | Binds `dreamina.*` to `DreaminaProperties` |
+| Property Binding | ✅ Stable | Binds `dreamina.cli.*` to `DreaminaProperties` |
 | `DreaminaCliExecutor` bean | ✅ Stable | Auto-registered via DreaminaAutoConfiguration |
 
 ## 3. Requirements and Compatibility
@@ -81,7 +81,7 @@ Auto-configuration registration:
 </dependency>
 ```
 
-This starter depends on the following components (managed by ddd4j BOM):
+This starter depends on the following components (version declared by this starter):
 
 ```xml
 <dependency>
@@ -100,7 +100,10 @@ Add the dependency above to your `pom.xml`.
 
 ```yaml
 dreamina:
-  enabled: true
+  cli:
+    enabled: true
+  canvas:
+    enabled: true
 ```
 
 ### 6.3 Use the bean
@@ -131,7 +134,7 @@ private DreaminaCliExecutor dreaminaCliExecutor;
 
 | Property | Type | Default | Required | Description | Sensitive |
 |---|---|---|:---:|---|:---:|
-| `dreamina.enabled` | boolean | `true` | No | Enable the starter | No |
+| `dreamina.cli.enabled` | boolean | `true` | No | Enable the starter | No |
 <!-- additional properties below -->
 
 ## 8. Version Lines and Compatibility
@@ -140,7 +143,7 @@ private DreaminaCliExecutor dreaminaCliExecutor;
 |---|---:|---:|---|:---:|
 | `2.3.x` / `2.7.x` | `8+` | 2.3.x / 2.7.x | `1.0.x` | Maintenance |
 | `3.0.x` ~ `3.5.x` | `17` | 3.x | `2.0.x` | Maintenance |
-| `4.0.x` / `4.1.x` | `17+` | 4.x | `3.0.x` | Active |
+| `4.0.x` / `4.1.x` | `21` | 4.x | `3.0.x` | Active |
 
 ## 9. Build and Test
 
@@ -153,7 +156,7 @@ mvn -pl dreamina-spring-boot-starter -am test
 
 | Symptom | Diagnosis | Resolution |
 |---|---|---|
-| Bean not created | Check auto-configuration report | Verify `dreamina.enabled=true` and classpath |
+| Bean not created | Check auto-configuration report | Verify `dreamina.cli.enabled=true` and classpath |
 | `ClassNotFoundException` | Missing dependency | Add the required module |
 | Version conflict | `mvn dependency:tree` | Use BOM for version alignment |
 
@@ -178,4 +181,9 @@ This project is licensed under the [Apache License, Version 2.0](https://www.apa
 
 ## Dreamina Canvas CLI
 
-The starter exposes `DreaminaCanvasCliExecutor` with independent `dreamina.canvas.*` settings. Set `dreamina.canvas.profile=work` and optionally `dreamina.canvas.executable`, `region`, `command-timeout-millis`, and `max-concurrent-executions`. Set `dreamina.canvas.enabled=false` to disable the Canvas bean. The legacy `dreamina.cli.*` beans remain available during migration.
+The starter exposes `DreaminaCanvasCliExecutor` with independent `dreamina.canvas.*` settings. Set `dreamina.canvas.profile=work` and optionally `dreamina.canvas.executable`, `region`, `command-timeout-millis`, and `max-concurrent-executions`. Set `dreamina.canvas.enabled=false` to disable the Canvas bean. Both legacy `dreamina.cli.*` and Canvas beans remain actively supported.
+
+
+## SDK contract validation for this delivery
+
+Private Aliyun Maven publication and isolated clean-cache consumption are complete. Boot 2.x → SDK 1.0.x / Java 8; Boot 3.x → SDK 2.0.x / Java 17; Boot 4.x → SDK 3.0.x / Java 21. Each line passed 25 producer tests and 3 external consumer tests, including strict types and raw decimal precision under the actual Boot-managed Jackson runtime. See the [release report](docs/validation/dual-cli-release.md) for final snapshots and the approved team exception.
