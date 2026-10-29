@@ -211,6 +211,15 @@
                 <version>3.1.2</version>
             </plugin>
                         <!-- 中央仓库发布插件 -->
+
+        </plugins>
+    </build>
+    <!-- 私服快照使用 distributionManagement；Central 发布仅显式启用。 -->
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
@@ -220,6 +229,8 @@
                     <publishingServerId>central</publishingServerId>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
