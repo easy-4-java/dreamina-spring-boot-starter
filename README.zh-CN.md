@@ -6,7 +6,7 @@
 
 **Spring Boot Starter，集成 dreamina**
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.easy4j/dreamina-spring-boot-starter)](https://github.com/easy-4-java/dreamina-spring-boot-starter)
+[![Private Maven](https://img.shields.io/badge/Maven-Aliyun_Private-blue)](https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-snapshot-3eoov3)
 [![Java](https://img.shields.io/badge/Java-17-orange)](#3-运行要求与兼容性)
 [![License](https://img.shields.io/badge/license-Apache-2.0-green)](https://www.apache.org/licenses/LICENSE-2.0)
 
@@ -45,7 +45,7 @@
 | 能力 | 状态 | 说明 |
 |---|:---:|---|
 | 自动装配 | ✅ 稳定 | 自动注册 dreamina 相关 Bean |
-| 属性绑定 | ✅ 稳定 | 绑定 `dreamina.*` 到 `DreaminaProperties` |
+| 属性绑定 | ✅ 稳定 | 绑定 `dreamina.cli.*` 到 `DreaminaProperties` |
 | `DreaminaCliExecutor` Bean | ✅ 稳定 | 通过 DreaminaAutoConfiguration 自动注册 |
 
 ## 3. 运行要求与兼容性
@@ -100,7 +100,10 @@ Starter 自动装配以下 Bean：
 
 ```yaml
 dreamina:
-  enabled: true
+  cli:
+    enabled: true
+  canvas:
+    enabled: true
 ```
 
 ### 6.3 使用 Bean
@@ -131,7 +134,7 @@ private DreaminaCliExecutor dreaminaCliExecutor;
 
 | 属性 | 类型 | 默认值 | 必填 | 说明 | 敏感 |
 |---|---|---|:---:|---|:---:|
-| `dreamina.enabled` | boolean | `true` | 否 | 是否启用 Starter | 否 |
+| `dreamina.cli.enabled` | boolean | `true` | 否 | 是否启用 Starter | 否 |
 <!-- 更多属性见下方 -->
 
 ## 8. 版本线与兼容性
@@ -140,7 +143,7 @@ private DreaminaCliExecutor dreaminaCliExecutor;
 |---|---:|---:|---|:---:|
 | `2.3.x` / `2.7.x` | `8+` | 2.3.x / 2.7.x | `1.0.x` | 维护中 |
 | `3.0.x` ~ `3.5.x` | `17` | 3.x | `2.0.x` | 维护中 |
-| `4.0.x` / `4.1.x` | `17+` | 4.x | `3.0.x` | 活跃开发 |
+| `4.0.x` / `4.1.x` | `21` | 4.x | `3.0.x` | 活跃开发 |
 
 ## 9. 构建与测试
 
@@ -153,7 +156,7 @@ mvn -pl dreamina-spring-boot-starter -am test
 
 | 症状 | 诊断 | 解决 |
 |---|---|---|
-| Bean 未创建 | 查看自动装配报告 | 确认 `dreamina.enabled=true` 与 classpath |
+| Bean 未创建 | 查看自动装配报告 | 确认 `dreamina.cli.enabled=true` 与 classpath |
 | `ClassNotFoundException` | 缺少依赖 | 引入对应模块 |
 | 版本冲突 | `mvn dependency:tree` | 使用 BOM 统一版本 |
 
@@ -179,3 +182,8 @@ mvn -pl dreamina-spring-boot-starter -am test
 ## 即梦画布 CLI
 
 Starter 提供 `DreaminaCanvasCliExecutor`，使用独立的 `dreamina.canvas.*` 配置。例如设置 `dreamina.canvas.profile=work`，还可配置 `executable`、`region`、`command-timeout-millis`、`max-concurrent-executions`。设置 `dreamina.canvas.enabled=false` 可关闭画布执行器；迁移期间保留原有 `dreamina.cli.*` Bean。
+
+
+## 本轮 SDK 契约验证
+
+本轮阿里云私服发布与独立空缓存消费验证已完成。Boot 2.x → SDK 1.0.x / Java 8；Boot 3.x → SDK 2.0.x / Java 17；Boot 4.x → SDK 3.0.x / Java 21。每条分支 25 项原生测试、3 项外部消费测试通过，包含实际 Boot 管理的 Jackson 下的严格类型和原始文档小数精度检查。最终时间戳与已批准的团队场景例外见[发布报告](docs/validation/dual-cli-release.md)。
